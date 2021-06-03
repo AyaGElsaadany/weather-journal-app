@@ -1,24 +1,29 @@
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth()+1 +'.'+ d.getDate()+'.'+ d.getFullYear();
 
 
 /* Global Variables */
 const BaseURL = 'http://api.openweathermap.org/data/2.5/weather?q=';
-const ApiKey = '&APPID=6b782d8ab838971b06126a777aeca2a0';
+const ApiKey = '&APPID=6b782d8ab838971b06126a777aeca2a0&units=metric';
+
 
 document.getElementById('generate').addEventListener('click', performAction);
 
-
 function performAction(e){
     const zip =  document.getElementById('zip').value;
+    if(zip == '') 
+      console.log("you didn't enter zip code");
     const feelings =  document.getElementById('feelings').value;
     getWeather(BaseURL, zip, ApiKey)
       .then(function(data){
         console.log(data);
-        postData('/allData', {temp: data.main.temp, date: d, content: data.main.feels_like});
+        postData('/receiveData', {temp: data.main.temp, date: newDate, content: feelings});
         UI();
       })
+      // .then(
+      //   UI()
+      // )
 }
 
 
@@ -64,14 +69,14 @@ const postData = async ( url = '', data = {})=>{
 
 //change UI
 const UI = async ()=>{
-    const response = await fetch('/allData');
+    const response = await fetch('/sendData');
 
     try {
       const allData = await response.json();
       console.log(allData);
-      document.getElementById('date').innerHTML = "Date :" + allData[0].date;
-      document.getElementById('temp').innerHTML = "Temprature :" + allData[0].temp;
-      document.getElementById('content').innerHTML = "Feeling :" + allData[0].content;
+      document.getElementById('date').innerHTML = "Date :" + allData.date;
+      document.getElementById('temp').innerHTML = "Temprature :" + allData.temp;
+      document.getElementById('content').innerHTML = "Feeling :" + allData.content;
 
     }catch(error) {
     console.log("error", error);

@@ -4,10 +4,12 @@ body{
 }
 
 #app{
+    padding: 20px;
+    border-radius: 20px;
     display: grid;
     grid-auto-rows: minmax(150px, auto);
     /* grid-template-columns:  */
-    height:100vh;
+    /* height:100vh; */
     background: #f23557;
     color: #f0d43a;
     justify-content: center;
@@ -17,7 +19,7 @@ body{
 }
 
 .holder{
-
+    padding: 20px;
 }
 
 .entry{
@@ -41,7 +43,10 @@ body{
 }
 
 .headline {
-
+    text-align: center;
+    
+    color: white;
+    font-weight: bold;
 }
 .title{
 
@@ -65,8 +70,8 @@ input{
 }
 
 button{
-    width: 400px;
-    height: 100px;
+    /* width: 400px;
+    height: 100px; */
     background: #3b4a6b;
     color: #f0d43a;
     font-size: 26px;
